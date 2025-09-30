@@ -85,24 +85,23 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
 }
 
 function BookCard({ item, badge }: { item: Item; badge?: string }) {
+  const rankNumber = badge?.match(/\d+/)?.[0]?.padStart(2, "0") || "00"
+
   return (
-    <Card className="hover:border-primary/50 transition-colors min-w-[320px] flex-shrink-0">
-      <div className="flex items-start justify-between mb-3">
-        <div className="space-y-1 flex-1">
-          <div className="text-xs text-muted-foreground font-mono">ID: {item.work_id}</div>
-          <h3 className="text-base font-semibold leading-snug text-foreground">{item.work_title}</h3>
-          <div className="text-sm text-muted-foreground">{item.work_author}</div>
-        </div>
-        {badge && (
-          <span className="text-xs bg-primary/10 text-primary border border-primary/20 rounded-full px-2.5 py-1 font-medium">
-            {badge}
-          </span>
-        )}
+    <div className="min-w-[280px] max-w-[320px] flex-shrink-0 bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+      <div className="text-6xl font-bold text-gray-200 mb-4 leading-none">{rankNumber}</div>
+
+      <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight">{item.work_title}</h3>
+
+      <div className="text-sm text-gray-600 mb-3">{item.work_author}</div>
+
+      <div className="text-xs text-gray-500 mb-3 space-y-0.5">
+        <div>단행본 1권</div>
+        <div>대상독자 : 일반 독자</div>
       </div>
-      <p className="text-sm leading-relaxed text-foreground/70 whitespace-pre-wrap line-clamp-3">
-        {item.work_synopsis}
-      </p>
-    </Card>
+
+      <p className="text-sm text-gray-700 leading-relaxed line-clamp-6">{item.work_synopsis}</p>
+    </div>
   )
 }
 
