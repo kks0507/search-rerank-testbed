@@ -1,7 +1,7 @@
 "use client"
 import type React from "react"
 import { useEffect, useMemo, useState } from "react"
-import { Search, Settings, Sparkles, ArrowRight } from "lucide-react"
+import { Search, Settings, Sparkles } from "lucide-react"
 
 // ========================
 // 안전한 API Base 설정 (process 미사용)
@@ -337,32 +337,11 @@ export default function RerankTestbed() {
         </div>
 
         {(parsed.length > 0 || rerankedItems.length > 0) && (
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Original Results */}
+          <div className="space-y-8">
+            {/* Reranked Results - Top Section */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <h2 className="text-lg font-semibold text-foreground">Original Results</h2>
-                <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">
-                  {parsed.length} items
-                </span>
-              </div>
-              {parsed.length === 0 ? (
-                <Card className="text-sm text-muted-foreground text-center py-8">
-                  No results yet. Run a search to see results.
-                </Card>
-              ) : (
-                <div className="grid gap-3">
-                  {parsed.map((it, idx) => (
-                    <BookCard key={`${it.work_id}-${idx}`} item={it} badge={`#${idx + 1}`} />
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Reranked Results */}
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <ArrowRight className="w-5 h-5 text-primary" />
+                <Sparkles className="w-5 h-5 text-primary" />
                 <h2 className="text-lg font-semibold text-foreground">Reranked Results</h2>
                 <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
                   {rerankedItems.length} items
@@ -385,6 +364,39 @@ export default function RerankTestbed() {
                 <div className="grid gap-3">
                   {rerankedItems.map((it, idx) => (
                     <BookCard key={`${it.work_id}-rerank-${idx}`} item={it} badge={`Rank ${idx + 1}`} />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Divider */}
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-border"></div>
+              </div>
+              <div className="relative flex justify-center">
+                <span className="bg-background px-4 text-xs text-muted-foreground uppercase tracking-wide">
+                  Original Results
+                </span>
+              </div>
+            </div>
+
+            {/* Original Results - Bottom Section */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <h2 className="text-lg font-semibold text-foreground">Original Results</h2>
+                <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">
+                  {parsed.length} items
+                </span>
+              </div>
+              {parsed.length === 0 ? (
+                <Card className="text-sm text-muted-foreground text-center py-8">
+                  No results yet. Run a search to see results.
+                </Card>
+              ) : (
+                <div className="grid gap-3">
+                  {parsed.map((it, idx) => (
+                    <BookCard key={`${it.work_id}-${idx}`} item={it} badge={`#${idx + 1}`} />
                   ))}
                 </div>
               )}
