@@ -86,7 +86,7 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
 
 function BookCard({ item, badge }: { item: Item; badge?: string }) {
   return (
-    <Card className="hover:border-primary/50 transition-colors">
+    <Card className="hover:border-primary/50 transition-colors min-w-[320px] flex-shrink-0">
       <div className="flex items-start justify-between mb-3">
         <div className="space-y-1 flex-1">
           <div className="text-xs text-muted-foreground font-mono">ID: {item.work_id}</div>
@@ -361,7 +361,7 @@ export default function RerankTestbed() {
                   No reranked results yet. Run reranking to see optimized results.
                 </Card>
               ) : (
-                <div className="grid gap-3">
+                <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
                   {rerankedItems.map((it, idx) => (
                     <BookCard key={`${it.work_id}-rerank-${idx}`} item={it} badge={`Rank ${idx + 1}`} />
                   ))}
@@ -394,7 +394,7 @@ export default function RerankTestbed() {
                   No results yet. Run a search to see results.
                 </Card>
               ) : (
-                <div className="grid gap-3">
+                <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
                   {parsed.map((it, idx) => (
                     <BookCard key={`${it.work_id}-${idx}`} item={it} badge={`#${idx + 1}`} />
                   ))}
